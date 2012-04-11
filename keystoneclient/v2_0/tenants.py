@@ -61,6 +61,9 @@ class TenantManager(base.ManagerWithFind):
     def get(self, tenant_id):
         return self._get("/tenants/%s" % tenant_id, "tenant")
 
+    def get_by_name(self, tenant_name):
+        return self._get("/tenants?name=%s" % tenant_name, "tenant")
+
     def create(self, tenant_name, description=None, enabled=True):
         """
         Create a new tenant.

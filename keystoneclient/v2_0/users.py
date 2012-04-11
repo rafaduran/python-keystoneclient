@@ -36,6 +36,9 @@ class UserManager(base.ManagerWithFind):
     def get(self, user):
         return self._get("/users/%s" % base.getid(user), "user")
 
+    def get_by_name(self, user_name):
+        return self._get("/users?name=%s" % user_name, "user")
+
     def update(self, user, **kwargs):
         """
         Update user data.

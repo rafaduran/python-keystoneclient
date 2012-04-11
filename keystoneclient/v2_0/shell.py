@@ -29,10 +29,16 @@ def do_user_list(kc, args):
     utils.print_list(users, ['id', 'enabled', 'email', 'name'])
 
 
-@utils.arg('id', metavar='<user-id>', help='User ID to display')
+@utils.arg('--by_name', required=False, action='store_true',
+           help='The user identifier is treated as a username.')
+@utils.arg('id', metavar='<user-identifier>',
+           help='Identifies the user to display (user ID, by default).')
 def do_user_get(kc, args):
     """Display user details."""
-    user = kc.users.get(args.id)
+    if args.by_name:
+        user = kc.users.get_by_name(args.id)
+    else:
+        user = kc.users.get(args.id)
     utils.print_dict(user._info)
 
 
@@ -102,10 +108,16 @@ def do_tenant_list(kc, args):
     utils.print_list(tenants, ['id', 'name', 'enabled'])
 
 
-@utils.arg('id', metavar='<tenant-id>', help='Tenant ID to display')
+@utils.arg('--by_name', required=False, action='store_true',
+           help='The tenant identifier is treated as a tenant name.')
+@utils.arg('id', metavar='<tenant-identifier>',
+           help='Identifies the tenant to display (tenant ID, by default).')
 def do_tenant_get(kc, args):
     """Display tenant details"""
-    tenant = kc.tenants.get(args.id)
+    if args.by_name:
+        tenant = kc.tenants.get_by_name(args.id)
+    else:
+        tenant = kc.tenants.get(args.id)
     utils.print_dict(tenant._info)
 
 
